@@ -36,75 +36,47 @@ INSERT INTO orders VALUES
 (112, 8, 'laptop', 1200),
 (113, 7, 'tablet', 250),
 (114, 6, 'phone', 650);
+-- =====================================
 -- 4. ANALYSIS QUERIES
- SELECT * FROM Customers 
-SELECT * FROM Orders 
+-- =====================================
 
-SELECT * 
-FROM orders 
-WHERE amount > 500
-
-SELECT c.name, SUM(o.amount) 
-FROM customers as c
-JOIN orders as o
-on c.customer_id = o.customer_id 
-GROUP BY c.name 
-
-SELECT c.name, o.amount 
-FROM customers as c
-JOIN orders as o
-ON c.customer_id = o.customer_id 
- 
-SELECT c.name , 
- COUNT(o.order_id) AS total_spent
-FROM customers AS c 
-INNER JOIN orders AS O
- ON c.customer_id = o.customer_id 
- GROUP BY c.name 
-
-SELECT TOP 1
-c.name , COUNT(o.amount) AS total_spent 
-FROM customers as c
-INNER JOIN orders as o 
-ON c.customer_id = o.customer_id 
-GROUP BY c.name 
-ORDER BY total_spent 
-
---SELECT o.product, 
---SUM(o.amount) AS Total_revenue
---FROM orders as o
---GROUP BY o.product 
-
---SELECT c.name,
---SUM(o.amount)
---FROM customers AS c
---INNER JOIN orders as o
---on c.customer_id = o.customer_id 
---GROUP BY c.name 
---HAVING SUM(o.amount) > 500
-
---SELECT 
---TRIM(name) AS clean_name 
---FROM customers
-
---SELECT 
---CONCAT(c.name, ' Spent ', o.amount) AS description 
---FROM customers as c
---INNER JOIN orders as o
---ON c.customer_id = o.customer_id 
-
---SELECT 
---UPPER(TRIM(product)) AS clean_product 
---FROM orders
- 
+-- 1. Customers with total spending
 SELECT 
-c.name, 
-COUNT(o.order_id) AS total_order,
-SUM(o.amount) AS total_revenue 
-FROM customers AS c 
-INNER JOIN orders AS o
-ON c.customer_id = o.customer_id 
-GROUP BY c.name 
+    c.name,
+    SUM(o.amount) AS total_spent
+FROM customers c
+JOIN orders o 
+ON c.customer_id = o.customer_id
+GROUP BY c.name;
+
+-- 2. High value customers (>1000)
+SELECT 
+    c.name,
+    SUM(o.amount) AS total_spent
+FROM customers c
+JOIN orders o 
+ON c.customer_id = o.customer_id
+GROUP BY c.name
+HAVING SUM(o.amount) > 1000;
+
+-- 3. Revenue per product
+SELECT 
+    product,
+    SUM(amount) AS total_revenue
+FROM orders
+GROUP BY product;
+
+-- 4. Clean customer names
+SELECT 
+    UPPER(TRIM(name)) AS clean_name,
+    city
+FROM customers;
+
+-- 5. Orders above 500
+SELECT *
+FROM orders
+WHERE amount > 500;
+
 
 
 
