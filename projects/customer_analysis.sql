@@ -1,9 +1,16 @@
+-- =====================================
+-- CUSTOMER ANALYSIS PROJECT
+-- =====================================
+
+-- 1. CREATE DATABASE
 Create database CustomerProject 
 USE CustomerProject
 
+-- 2. CREATE TABLES
 CREATE TABLE Customers ( Customer_id INT, name VARCHAR(30),city VARCHAR(30),)
 CREATE TABLE Orders ( Order_id INT, customer_id INT, product VARCHAR(30), amount INT)
 
+-- 3. INSERT DATA
 INSERT INTO Customers VALUES
 (1, ' alice ', 'london'),
 (2, 'BOB', 'LONDON'),
@@ -29,6 +36,7 @@ INSERT INTO orders VALUES
 (112, 8, 'laptop', 1200),
 (113, 7, 'tablet', 250),
 (114, 6, 'phone', 650);
+-- 4. ANALYSIS QUERIES
  SELECT * FROM Customers 
 SELECT * FROM Orders 
 
